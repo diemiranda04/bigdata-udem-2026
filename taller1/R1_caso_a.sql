@@ -365,7 +365,7 @@ ORDER BY D.MES;
 
   Interpretación A5c: la única zona donde Lyft domina es Saint Michaels Cemetery/Woodside, en
   Queens, con cerca del 85 % de los viajes los tres meses. Es una excepción pequeña: unas 3000
-  recogidas al mes, contra las 261 zonas donde Uber tiene la mayoría. Que la cuota casi no se
+  recogidas al mes, frente a las 257 o 258 zonas donde Uber tiene la mayoría (A4). Que la cuota casi no se
   mueva (85.47 %, 85.59 %, 84.75 %) muestra que no es un caso de un mes, sino algo estable de esa
   zona. Los datos no dicen por qué (puede ser un acuerdo, un punto de recogida o una base de
   conductores cercana), así que no lo afirmamos.
