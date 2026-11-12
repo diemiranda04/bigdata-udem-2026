@@ -1,6 +1,6 @@
 # Retos opcionales · Taller 1
 
-Equipo: <nombres>. Los retos suman hasta +15 puntos (los seis suman 17; el máximo que se acredita es 15).
+Equipo: Brayan Andres Muñoz Bedoya, Diego Alejandro Miranda Marin y Julian Andres Urrea Escobar. Los retos suman hasta +15 puntos (los seis suman 17; el máximo que se acredita es 15).
 
 | Id | Reto | Pts | ¿Hecho? | Dónde está (archivo y línea o sección) |
 |---|---|---|---|---|

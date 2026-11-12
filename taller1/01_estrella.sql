@@ -2,7 +2,7 @@
 
 /*
   Taller 1 - Caso C (aeropuertos y distritos) - 01_estrella.sql
-  Equipo: <nombres>
+  Equipo: Brayan Andres Muñoz Bedoya, Diego Alejandro Miranda Marin y Julian Andres Urrea Escobar
 
   Aquí solo creamos las tablas vacías de la estrella en CURSO.T1; la carga va en 02_carga.sql.
   Armamos un hecho (FACT_VIAJES_DIA) y tres dimensiones: zona, empresa y fecha.

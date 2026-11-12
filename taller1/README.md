@@ -11,10 +11,9 @@ Enunciado completo del profesor: [`curso/clase04/taller1/README.md`](../curso/cl
 
 | Integrante | Usuario de GitHub | Rol |
 |---|---|---|
-| <nombre> (anfitrión, dueño de este fork) | diemiranda04 | <rol> |
-| <nombre> | <usuario> | <rol> |
-| <nombre> | <usuario> | <rol> |
-| <nombre> | <usuario> | <rol> |
+| Diego Alejandro Miranda Marin (anfitrión, dueño de este fork) | diemiranda04 | Modelador e Ingeniero de datos |
+| Julian Andres Urrea Escobar | julianurreae | Analista |
+| Brayan Andres Muñoz Bedoya | <usuario> | Calidad y costos |
 
 | Rol | Responde por |
 |---|---|
@@ -31,16 +30,16 @@ Enunciado completo del profesor: [`curso/clase04/taller1/README.md`](../curso/cl
 
 | Entregable | Estado | Responsable |
 |---|---|---|
-| `01_estrella.sql` · DDL y grano | ✅ Listo | <nombre> |
-| `02_carga.sql` · carga y conteo de control | ✅ Listo y probado (46 715 filas, 60 268 466 viajes) | <nombre> |
-| `diagrama.md` · diagrama y claves | ✅ Listo | <nombre> |
-| `04_chequeos.sql` · controles de integridad | 🟡 Escrito, falta correrlo y pegar el resultado | <nombre> |
-| `03_preguntas.sql` · C1 a C5 con interpretación | ⬜ Pendiente | <nombre> |
-| `memo.md` · una página | 🟡 Borrador: ya tiene supuestos y trampa evitada; faltan hallazgos | <nombre> |
-| `costos.md` + `query_profile.png` | ⬜ Pendiente | <nombre> |
-| `autoverificacion.txt` | ⬜ Pendiente (lo corre el anfitrión) | <nombre> |
-| `RETOS.md` | ⬜ Pendiente (opcional) | <nombre> |
-| Release `t1-entrega` | ⬜ Pendiente (lo crea el anfitrión) | <nombre> |
+| `01_estrella.sql` · DDL y grano | ✅ Listo | Diego Alejandro Miranda Marin |
+| `02_carga.sql` · carga y conteo de control | ✅ Listo y probado (46 715 filas, 60 268 466 viajes) | Diego Alejandro Miranda Marin |
+| `diagrama.md` · diagrama y claves | ✅ Listo | Diego Alejandro Miranda Marin |
+| `04_chequeos.sql` · controles de integridad | ✅ Listo: 6 de 6 en OK en la cuenta del anfitrión | Diego Alejandro Miranda Marin |
+| `03_preguntas.sql` · C1 a C5 con interpretación | 🟡 En el PR #1: falta validar los valores en la cuenta del anfitrión | Julian Andres Urrea Escobar y Diego Alejandro Miranda Marin |
+| `memo.md` · una página | 🟡 En el PR #1: completo, falta validar las cifras | Julian Andres Urrea Escobar |
+| `costos.md` + `query_profile.png` | ⬜ Pendiente | Brayan Andres Muñoz Bedoya |
+| `autoverificacion.txt` | ✅ Listo: 4 de 4 controles en OK | Diego Alejandro Miranda Marin |
+| `RETOS.md` | ⬜ Pendiente (opcional) | Todos |
+| Release `t1-entrega` | ⬜ Pendiente (lo crea el anfitrión) | Diego Alejandro Miranda Marin |
 | Coevaluación | ⬜ Cada integrante, con el enlace del profesor | Todos |
 
 ---

@@ -1,6 +1,6 @@
 # Costos · Taller 1
 
-Equipo: <nombres> · Cuenta que reporta (anfitrión): <nombre>
+Equipo: Brayan Andres Muñoz Bedoya, Diego Alejandro Miranda Marin y Julian Andres Urrea Escobar · Cuenta que reporta (anfitrión): Diego Alejandro Miranda Marin
 
 ## Créditos usados
 
