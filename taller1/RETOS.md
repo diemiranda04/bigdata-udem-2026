@@ -20,4 +20,4 @@ Leímos los mismos archivos del paquete desde Athena (tabla externa `bigdata_lak
 | 2024-03 | 15917 | 15917 | 21273719 | 21273719 |
 | **Total** | **46715** | **46715** | **60268466** | **60268466** |
 
-Data scanned de la consulta en Athena: <X>. Athena cobra como mínimo 10 MB por consulta, así que costó lo mismo que cualquier consulta pequeña (unos US$0.00005). Captura: <img width="1411" height="647" alt="Captura de pantalla 2026-11-11 233155" src="https://github.com/user-attachments/assets/3ae73028-5499-478b-a5fe-c2b45c77a39c" /> .
+La consulta en Athena leyó 140.18 KB (Datos analizados), aunque los archivos pesan unos 641 KB. Esto pasa porque Parquet guarda los datos por columnas: solo se leyó la columna `viajes`, y el mes sale del nombre de la carpeta (partición). Athena cobra como mínimo 10 MB por consulta, así que costó unos US$0.00005. Captura:  <img width="1411" height="647" alt="Captura de pantalla 2026-11-11 233155" src="https://github.com/user-attachments/assets/3ae73028-5499-478b-a5fe-c2b45c77a39c" /> .
