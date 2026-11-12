@@ -38,6 +38,11 @@ FROM (
 ORDER BY K;
 
 /*
-  Resultado en la cuenta del anfitrión:
-  <pegar aquí>
+ CONTROL	HECHO	ESPERADO	RESULTADO
+filas	46715	46715	OK
+grano	46715	46715	OK
+sin zona	0	0	OK
+viajes	60268466	60268466	OK
+sin empresa	0	0	OK
+sin fecha	0	0	OK
 */
