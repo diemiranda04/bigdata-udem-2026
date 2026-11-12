@@ -7,6 +7,6 @@ Equipo: <nombres>. Los retos suman hasta +15 puntos (los seis suman 17; el máxi
 | R1 | Un segundo caso completo (cinco preguntas más) | 3 | no | — |
 | R2 | `DIM_FECHA` con festivos y fin de semana, usada en una consulta | 2 | no | — |
 | R3 | Lluvia fuerte (más de 10 mm) frente a la línea base del mismo día de la semana | 3 | no | — |
-| R4 | Suite de chequeos (grano, huérfanos, reconciliación con el conteo del paquete) en un solo archivo ejecutable | 3 | <sí/no> | `04_chequeos.sql` (revisar si cuenta) |
+| R4 | Suite de chequeos (grano, huérfanos, reconciliación con el conteo del paquete) en un solo archivo ejecutable | 3 | sí | `04_chequeos.sql` (6 controles en una consulta, todos en OK) |
 | R5 | Rachas de alta demanda (días consecutivos sobre un umbral; «huecos e islas») | 3 | no | — |
 | R6 | Tabla externa de Athena sobre el paquete y reconciliación de conteos con Snowflake, con captura de `Data scanned` | 3 | no | — |
