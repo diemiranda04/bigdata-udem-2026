@@ -1,6 +1,6 @@
 # Diagrama de la estrella · Taller 1 · Caso C
 
-Equipo: <nombres>
+Equipo: Brayan Andres Muñoz Bedoya, Diego Alejandro Miranda Marin y Julian Andres Urrea Escobar
 
 Grano (el mismo de la primera línea de `01_estrella.sql`): **una fila por fecha, zona de recogida y empresa.**
 
