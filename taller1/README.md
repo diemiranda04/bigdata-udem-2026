@@ -34,8 +34,8 @@ Enunciado completo del profesor: [`curso/clase04/taller1/README.md`](../curso/cl
 | `02_carga.sql` · carga y conteo de control | ✅ Listo y probado (46 715 filas, 60 268 466 viajes) | Diego Alejandro Miranda Marin |
 | `diagrama.md` · diagrama y claves | ✅ Listo | Diego Alejandro Miranda Marin |
 | `04_chequeos.sql` · controles de integridad | ✅ Listo: 6 de 6 en OK en la cuenta del anfitrión | Diego Alejandro Miranda Marin |
-| `03_preguntas.sql` · C1 a C5 con interpretación | 🟡 En el PR #1: falta validar los valores en la cuenta del anfitrión | Julian Andres Urrea Escobar y Diego Alejandro Miranda Marin |
-| `memo.md` · una página | 🟡 En el PR #1: completo, falta validar las cifras | Julian Andres Urrea Escobar |
+| `03_preguntas.sql` · C1 a C5 con interpretación | ✅ En el PR #1: falta validar los valores en la cuenta del anfitrión | Julian Andres Urrea Escobar y Diego Alejandro Miranda Marin |
+| `memo.md` · una página | ✅ En el PR #1: completo, falta validar las cifras | Julian Andres Urrea Escobar |
 | `costos.md` + `query_profile.png` | ⬜ Pendiente | Brayan Andres Muñoz Bedoya |
 | `autoverificacion.txt` | ✅ Listo: 4 de 4 controles en OK | Diego Alejandro Miranda Marin |
 | `RETOS.md` | ⬜ Pendiente (opcional) | Todos |
