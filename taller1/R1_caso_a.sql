@@ -7,6 +7,7 @@
   interpretamos.
 
   Ventanas que usamos: SUM() OVER (A1 y A4), RANK con QUALIFY (A3) y LAG (A5).
+  A5c es una consulta de apoyo para ubicar la zona donde Lyft pasa de 70 %.
 
   Cómo correrlo: primero las líneas USE; después cada consulta por separado (se selecciona y se
   pulsa Run), porque Run All solo muestra el resultado de la última.
@@ -255,7 +256,7 @@ ORDER BY MES, EMPRESA;
   de febrero es el mismo punto que Lyft pierde en A1 y A4, y en marzo se devuelve una parte. Aun
   así, Uber nunca pasa de 82.3 % en ninguna zona: Lyft conserva por lo menos 1 de cada 6 viajes en
   todas partes, así que no hay monopolio en ninguna zona. Lyft pasa de 70 % en una sola zona, los
-  tres meses, con cerca de 85 %.
+  tres meses, con cerca de 85 %: Saint Michaels Cemetery/Woodside, en Queens (A5c).
 */
 
 -- A5b. Las 20 zonas con mayor cambio de cuota (se mira la de Lyft; la de Uber es el espejo,
@@ -340,4 +341,32 @@ LIMIT 20;
   Lo que no dice: con 3 meses no se sabe si la caída de febrero es una tendencia o algo de ese mes,
   y la cuota no dice por qué cambia (precios, promociones o número de conductores no están en los
   datos).
+*/
+
+
+-- A5c. La zona donde Lyft pasa de 70 % (A5a dice que hay una sola).
+
+SELECT Z.ZONA, Z.BOROUGH, D.MES, SUM(F.VIAJES) AS VIAJES,
+       ROUND(100 * SUM(IFF(E.EMPRESA = 'Lyft', F.VIAJES, 0)) / SUM(F.VIAJES), 2) AS CUOTA_LYFT
+FROM FACT_VIAJES_DIA F
+JOIN DIM_ZONA    Z ON Z.ZONA_KEY    = F.ZONA_KEY
+JOIN DIM_EMPRESA E ON E.EMPRESA_KEY = F.EMPRESA_KEY
+JOIN DIM_FECHA   D ON D.FECHA       = F.FECHA
+GROUP BY 1, 2, 3
+HAVING SUM(F.VIAJES) >= 1000 AND CUOTA_LYFT > 70
+ORDER BY D.MES;
+
+/*
+  Resultado A5c:
+  ZONA                              BOROUGH   MES       VIAJES   CUOTA_LYFT
+  Saint Michaels Cemetery/Woodside  Queens    2024-01   3124     85.47
+  Saint Michaels Cemetery/Woodside  Queens    2024-02   2789     85.59
+  Saint Michaels Cemetery/Woodside  Queens    2024-03   3076     84.75
+
+  Interpretación A5c: la única zona donde Lyft domina es Saint Michaels Cemetery/Woodside, en
+  Queens, con cerca del 85 % de los viajes los tres meses. Es una excepción pequeña: unas 3000
+  recogidas al mes, contra las 261 zonas donde Uber tiene la mayoría. Que la cuota casi no se
+  mueva (85.47 %, 85.59 %, 84.75 %) muestra que no es un caso de un mes, sino algo estable de esa
+  zona. Los datos no dicen por qué (puede ser un acuerdo, un punto de recogida o una base de
+  conductores cercana), así que no lo afirmamos.
 */
