@@ -103,13 +103,21 @@ ORDER BY E.EMPRESA, PUESTO;
 
 -- Interpretación:
 /*
-Las dos empresas tienen las mismas 3 zonas en su top:
-los dos aeropuertos (LaGuardia y JFK, ambos en Queens) y East Village en Manhattan. 
-El orden cambia: Lyft tiene más viajes en LaGuardia y Uber en JFK.
+  Resultado:
+  EMPRESA   ZONA                BOROUGH     VIAJES   PUESTO
+  Lyft      LaGuardia Airport   Queens      295689   1
+  Lyft      JFK Airport         Queens      247170   2
+  Lyft      East Village        Manhattan   227918   3
+  Uber      JFK Airport         Queens      810070   1
+  Uber      LaGuardia Airport   Queens      773675   2
+  Uber      East Village        Manhattan   614619   3
 
-Uber hace entre 2.7 y 3.1 veces más viajes que Lyft en cada una de esas zonas. Por ejemplo, en JFK son 810070 contra 247170.
-Los aeropuertos encabezan el ranking de las dos empresas.
-Esto mide volumen, no cuota. Cuánto del mercado tiene cada una lo dice A4.
+  Interpretación: las dos empresas tienen las mismas tres zonas en su top: los dos aeropuertos
+  (LaGuardia y JFK, en Queens) y East Village en Manhattan. Lo que cambia es el orden: a Lyft le
+  va mejor en LaGuardia y a Uber en JFK. En esas zonas Uber hace entre 2.6 y 3.3 veces más viajes
+  que Lyft (en JFK, 810070 frente a 247170).
+  Lo que no dice: esto mide volumen, no cuota de mercado; qué parte se lleva cada empresa en cada
+  zona se ve en A4.
 */
 
 
