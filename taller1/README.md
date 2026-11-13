@@ -13,7 +13,7 @@ Enunciado completo del profesor: [`curso/clase04/taller1/README.md`](../curso/cl
 |---|---|---|
 | Diego Alejandro Miranda Marin (anfitrión, dueño de este fork) | diemiranda04 | Modelador e Ingeniero de datos |
 | Julian Andres Urrea Escobar | julianurreae | Analista |
-| Brayan Andres Muñoz Bedoya | <usuario> | Calidad y costos |
+| Brayan Andres Muñoz Bedoya | <BAMUNOZ91> | Calidad y costos |
 
 | Rol | Responde por |
 |---|---|
@@ -36,7 +36,7 @@ Enunciado completo del profesor: [`curso/clase04/taller1/README.md`](../curso/cl
 | `04_chequeos.sql` · controles de integridad | ✅ Listo: 6 de 6 en OK en la cuenta del anfitrión | Diego Alejandro Miranda Marin |
 | `03_preguntas.sql` · C1 a C5 con interpretación | ✅ Listo: C1 a C5 con resultado e interpretación | Julian Andres Urrea Escobar y Diego Alejandro Miranda Marin |
 | `memo.md` · una página | ✅ Listo: 4 hallazgos, supuestos, trampa evitada y límites | Julian Andres Urrea Escobar |
-| `costos.md` + `query_profile.png` | ⬜ Pendiente | Brayan Andres Muñoz Bedoya |
+| `costos.md` + `query_profile.png` | ✅ Pendiente | Brayan Andres Muñoz Bedoya |
 | `autoverificacion.txt` | ✅ Listo: 4 de 4 controles en OK | Diego Alejandro Miranda Marin |
 | `RETOS.md` · R1 (`05_caso_A.sql`), R4 (`04_chequeos.sql`) y R5 (`R5_rachas.sql`) | ✅ Listo: 9 puntos | Julian Andres Urrea Escobar y Diego Alejandro Miranda Marin |
 | Release `t1-entrega` | ⬜ Pendiente (lo crea el anfitrión) | Diego Alejandro Miranda Marin |
