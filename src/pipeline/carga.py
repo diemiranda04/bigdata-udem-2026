@@ -48,9 +48,23 @@ DDL_TARIFA_POR_MILLA = (
     "TARIFA_POR_MILLA FLOAT)"
 )
 
+# La tabla del equipo ing_cluade_pro: sale de aeropuertos_lluvia (gold.py), mismas columnas y
+# mismo orden.
+DDL_AEROPUERTOS_LLUVIA = (
+    "CREATE TABLE IF NOT EXISTS {tabla} ("
+    "FECHA DATE, "
+    "TIPO_ZONA VARCHAR, "
+    "LLUVIA_MM FLOAT, "
+    "NIVEL_LLUVIA VARCHAR, "
+    "VIAJES NUMBER(38,0), "
+    "PROPINA_TOTAL FLOAT, "
+    "INGRESO_TOTAL FLOAT)"
+)
+
 # Cada entrada: la tabla de gold y el CREATE TABLE que se muestra para su tabla en Snowflake.
 TABLAS_A_CARGAR = [
     {"gold": "tarifa_por_milla_barrio", "ddl": DDL_TARIFA_POR_MILLA},
+    {"gold": "ing_cluade_pro_aeropuertos_lluvia", "ddl": DDL_AEROPUERTOS_LLUVIA},
 ]
 
 

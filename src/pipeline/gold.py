@@ -97,10 +97,80 @@ def tarifa_por_milla_por_barrio(enriquecido: DataFrame) -> DataFrame:
     )
 
 
+# --- la tabla del equipo ing_cluade_pro: aeropuertos frente al resto, con y sin lluvia ---------
+
+# Pregunta (taller2/contrato.md): en enero de 2024, ¿los viajes que salen de JFK y LaGuardia
+# cambian más con la lluvia que los que salen del resto de la ciudad?
+TABLA_AEROPUERTOS_LLUVIA = "ing_cluade_pro_aeropuertos_lluvia"
+
+COLUMNAS_AEROPUERTOS_LLUVIA = [
+    "fecha",
+    "tipo_zona",
+    "lluvia_mm",
+    "nivel_lluvia",
+    "viajes",
+    "propina_total",
+    "ingreso_total",
+]
+
+# Newark (EWR) no cuenta: está en Nueva Jersey y casi no tiene recogidas.
+ZONAS_AEROPUERTO = ["JFK Airport", "LaGuardia Airport"]
+
+# Un día es «con lluvia» desde 1 mm: por debajo es llovizna que casi no se nota.
+UMBRAL_LLUVIA_MM = 1.0
+
+
+def _nivel_lluvia(lluvia_mm: F.Column) -> F.Column:
+    """con_lluvia (>= 1 mm), sin_lluvia (< 1 mm) o sin_dato (lluvia nula)."""
+    return (
+        F.when(lluvia_mm.isNull(), "sin_dato")
+        .when(lluvia_mm >= UMBRAL_LLUVIA_MM, "con_lluvia")
+        .otherwise("sin_lluvia")
+    )
+
+
+def aeropuertos_lluvia(enriquecido: DataFrame) -> DataFrame:
+    """Por fecha y tipo de zona (aeropuerto o resto): lluvia del día, viajes, propina e ingreso.
+
+    Grano: una fila por fecha y tipo de zona (en un mes de 31 días, 62 filas). La lluvia es una
+    sola por día (viene de `enriquecer`), así que queda una vez por fila y no se suma. Las zonas
+    que no están en el lookup (`Zona <id>`) cuentan como resto.
+    """
+    con_tipo = enriquecido.select(
+        F.col("pickup_date").alias("fecha"),
+        F.when(F.col("zona").isin(ZONAS_AEROPUERTO), "aeropuerto")
+        .otherwise("resto")
+        .alias("tipo_zona"),
+        F.col("lluvia_mm"),
+        F.col("propina"),
+        F.col("total_pagado"),
+    )
+    return (
+        con_tipo.groupBy("fecha", "tipo_zona")
+        .agg(
+            F.max("lluvia_mm").alias("lluvia_mm"),
+            F.count(F.lit(1)).alias("viajes"),
+            F.sum("propina").alias("propina"),
+            F.sum("total_pagado").alias("ingreso"),
+        )
+        .select(
+            "fecha",
+            "tipo_zona",
+            "lluvia_mm",
+            _nivel_lluvia(F.col("lluvia_mm")).alias("nivel_lluvia"),
+            "viajes",
+            F.round("propina", 2).alias("propina_total"),
+            F.round("ingreso", 2).alias("ingreso_total"),
+        )
+        .select(*COLUMNAS_AEROPUERTOS_LLUVIA)
+    )
+
+
 # nombre de la tabla en gold -> función que la arma a partir del enriquecido. El equipo agrega la
 # suya aquí.
 TABLAS_GOLD = {
     "tarifa_por_milla_barrio": tarifa_por_milla_por_barrio,
+    TABLA_AEROPUERTOS_LLUVIA: aeropuertos_lluvia,
 }
 
 

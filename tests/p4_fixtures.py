@@ -127,6 +127,17 @@ class LakeDePrueba:
 
 @pytest.fixture
 def lake(entorno_limpio, raiz_lake, control_en_memoria, spark_equipo, monkeypatch, tmp_path):
-    """Lake de prueba con el crudo de la muestra puesto y el control en memoria."""
+    """Lake de prueba con el crudo de la muestra puesto y el control en memoria.
+
+    Gold y la carga corren solo la tabla de la casa: las cuentas de estas pruebas (decisiones,
+    llamadas a Snowflake, registros de control) son las de una tabla. La del equipo se prueba
+    aparte, en test_gold y test_carga.
+    """
+    from pipeline import carga, gold
+
+    monkeypatch.setattr(
+        gold, "TABLAS_GOLD", {"tarifa_por_milla_barrio": gold.tarifa_por_milla_por_barrio}
+    )
+    monkeypatch.setattr(carga, "TABLAS_A_CARGAR", carga.TABLAS_A_CARGAR[:1])
     _poner_crudos_de_muestra(spark_equipo, tmp_path / "crudos_tmp")
     return LakeDePrueba(spark_equipo, monkeypatch, control_en_memoria)

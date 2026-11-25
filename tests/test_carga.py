@@ -13,7 +13,7 @@ import pytest
 
 from hueco import MES, corrida_a_mano
 from pipeline import carga
-from pipeline.gold import COLUMNAS_TARIFA_POR_MILLA
+from pipeline.gold import COLUMNAS_AEROPUERTOS_LLUVIA, COLUMNAS_TARIFA_POR_MILLA
 from pipeline.herramientas import bodega
 
 pytest_plugins = ["p1_fixtures", "p4_fixtures"]
@@ -30,6 +30,8 @@ class Falsos:
     def __init__(self, monkeypatch, filas=7):
         self.llamadas: list[tuple] = []
         self.filas = filas
+        # Estas pruebas cuentan llamadas y registros de una sola tabla: la de la casa.
+        monkeypatch.setattr(carga, "TABLAS_A_CARGAR", carga.TABLAS_A_CARGAR[:1])
         monkeypatch.setattr(
             carga,
             "verificar_esquema_con_athena",
@@ -138,13 +140,24 @@ def test_el_ddl_de_la_casa_tiene_las_columnas_de_gold():
     assert columnas == COLUMNAS_TARIFA_POR_MILLA
 
 
+def test_el_ddl_del_equipo_tiene_las_columnas_de_su_gold():
+    """La tabla del equipo: el CREATE TABLE y aeropuertos_lluvia, mismas columnas y orden."""
+    cuerpo = re.search(r"\((.*)\)", carga.DDL_AEROPUERTOS_LLUVIA).group(1)
+    columnas = [definicion.split()[0].lower() for definicion in cuerpo.split(", ")]
+    assert columnas == COLUMNAS_AEROPUERTOS_LLUVIA
+    assert "IF NOT EXISTS" in carga.DDL_AEROPUERTOS_LLUVIA
+
+
 def test_el_ddl_crea_solo_si_no_existe():
     assert "IF NOT EXISTS" in carga.DDL_TARIFA_POR_MILLA
     assert "{tabla}" in carga.DDL_TARIFA_POR_MILLA
 
 
 def test_tablas_a_cargar_tiene_la_de_la_casa():
-    assert [e["gold"] for e in carga.TABLAS_A_CARGAR] == ["tarifa_por_milla_barrio"]
+    assert [e["gold"] for e in carga.TABLAS_A_CARGAR] == [
+        "tarifa_por_milla_barrio",
+        "ing_cluade_pro_aeropuertos_lluvia",
+    ]
 
 
 def test_el_codigo_no_crea_tablas():
