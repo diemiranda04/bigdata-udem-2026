@@ -6,8 +6,10 @@ from pyspark.sql import functions as F
 
 from pipeline import quality
 from pipeline.gold import (
+    COLUMNAS_AEROPUERTOS_LLUVIA,
     COLUMNAS_TARIFA_POR_MILLA,
     TABLAS_GOLD,
+    aeropuertos_lluvia,
     tarifa_por_milla_por_barrio,
 )
 from pipeline.silver import clima_diario, enriquecer, limpiar_viajes
@@ -30,8 +32,62 @@ def _enriquecido(spark, filas):
 
 
 def test_tabla_de_la_casa_esta_en_tablas_gold():
-    assert list(TABLAS_GOLD) == ["tarifa_por_milla_barrio"]
+    assert list(TABLAS_GOLD) == ["tarifa_por_milla_barrio", "ing_cluade_pro_aeropuertos_lluvia"]
     assert TABLAS_GOLD["tarifa_por_milla_barrio"] is tarifa_por_milla_por_barrio
+    assert TABLAS_GOLD["ing_cluade_pro_aeropuertos_lluvia"] is aeropuertos_lluvia
+
+
+# --- la tabla del equipo: aeropuertos frente al resto, con y sin lluvia ------------------------
+
+ESQUEMA_AEROPUERTOS = (
+    "pickup_date date, zona string, lluvia_mm double, propina double, total_pagado double"
+)
+
+
+def test_aeropuertos_lluvia_valores_conocidos(spark):
+    dia_1, dia_2, dia_3 = date(2024, 1, 1), date(2024, 1, 2), date(2024, 1, 3)
+    enriquecido = spark.createDataFrame(
+        [
+            (dia_1, "JFK Airport", 5.0, 2.0, 50.0),
+            (dia_1, "LaGuardia Airport", 5.0, 1.0, 30.0),
+            (dia_1, "Astoria", 5.0, 0.5, 20.0),
+            (dia_2, "JFK Airport", 0.5, 0.0, 40.0),
+            (dia_2, "Newark Airport", 0.5, 3.0, 60.0),
+            (dia_3, "Zona 264", None, 1.0, 10.0),
+        ],
+        ESQUEMA_AEROPUERTOS,
+    )
+    gold = aeropuertos_lluvia(enriquecido)
+
+    assert gold.columns == COLUMNAS_AEROPUERTOS_LLUVIA
+    filas = {(f["fecha"], f["tipo_zona"]): f for f in gold.collect()}
+    assert sorted(filas) == [
+        (dia_1, "aeropuerto"),
+        (dia_1, "resto"),
+        (dia_2, "aeropuerto"),
+        (dia_2, "resto"),
+        (dia_3, "resto"),
+    ]
+
+    # JFK y LaGuardia son aeropuerto; 1 mm o más es día con lluvia.
+    aeropuerto_1 = filas[(dia_1, "aeropuerto")]
+    assert aeropuerto_1["viajes"] == 2
+    assert aeropuerto_1["lluvia_mm"] == 5.0
+    assert aeropuerto_1["nivel_lluvia"] == "con_lluvia"
+    assert aeropuerto_1["propina_total"] == 3.0
+    assert aeropuerto_1["ingreso_total"] == 80.0
+
+    # Menos de 1 mm es sin lluvia; Newark cuenta como resto.
+    assert filas[(dia_2, "aeropuerto")]["nivel_lluvia"] == "sin_lluvia"
+    assert filas[(dia_2, "resto")]["viajes"] == 1
+    assert filas[(dia_2, "resto")]["ingreso_total"] == 60.0
+
+    # Sin dato de clima queda sin_dato; una zona fuera del catálogo cuenta como resto.
+    assert filas[(dia_3, "resto")]["lluvia_mm"] is None
+    assert filas[(dia_3, "resto")]["nivel_lluvia"] == "sin_dato"
+
+    # Gold agrupa, pero no pierde viajes.
+    assert sum(f["viajes"] for f in filas.values()) == enriquecido.count()
 
 
 def test_tarifa_por_milla_valores_conocidos(spark):
